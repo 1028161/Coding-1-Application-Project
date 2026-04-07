@@ -30,7 +30,7 @@ Each user should only be able to access and modify **their own data**.
  - [Bcrypt Documentation](https://pypi.org/project/bcrypt/)
  - [Regex Tutorial for Python](https://docs.python.org/3/library/re.html)
  - [GitHub Cheat-Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
- - [Flask Tutorial](https://youtu.be/Z1RJmh_OqeA?si=wRMKVcxRuuXRGsZN)
+ - [Flask Tutorial](https://www.youtube.com/watch?t=347&v=Z1RJmh_OqeA) (we are already in a virtual environment so ignore comments about env)
 
 ---
 
