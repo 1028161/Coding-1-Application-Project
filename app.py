@@ -1,7 +1,7 @@
 # Before running, make sure to run in the terminal:
 # pip install bcrypt
 # pip install flask
-
+#python3 app.py
 from flask import Flask, request, redirect, url_for, render_template, session
 from database import get_db, init_db
 import bcrypt
