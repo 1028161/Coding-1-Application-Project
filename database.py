@@ -8,17 +8,19 @@ def get_db():
 def init_db():
     conn = get_db()
     # Add your new table between lines 15 & 16.
+    # conn.execute("""
+       # CREATE TABLE IF NOT EXISTS users (
+           # username TEXT PRIMARY KEY,
+           # password TEXT
+       # )
     conn.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            username TEXT PRIMARY KEY,
-            password TEXT
-        )
+        users (    
             username calkum
             password 1254
             username swan
             password 5625
             username lused
             password lucifer
-    """)
+        )
     conn.commit()
     conn.close()
