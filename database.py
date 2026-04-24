@@ -13,7 +13,12 @@ def init_db():
             username TEXT PRIMARY KEY,
             password TEXT
         )
-        
+            username calkum
+            password 1254
+            username swan
+            password 5625
+            username lused
+            password lucifer
     """)
     conn.commit()
     conn.close()
