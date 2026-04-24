@@ -14,7 +14,7 @@ def init_db():
            # password TEXT
        # )
     conn.execute("""
-        users (    
+        users (
             username calkum
             password 1254
             username swan
