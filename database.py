@@ -13,6 +13,7 @@ def init_db():
             username TEXT PRIMARY KEY,
             password TEXT
         )
+        
     """)
     conn.commit()
     conn.close()
