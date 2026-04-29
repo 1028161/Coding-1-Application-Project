@@ -37,10 +37,10 @@ def login():
         conn.close()
 
         if user and bcrypt.checkpw(password.encode("utf-8"), user["password"]):
-            session["user"] = username
-            return redirect(url_for("secret"))
+            session["user"] = title
+            return redirect(url_for("dashboard"))
         else:
-            error = "Incorrect username or password"
+            error = "Incorrect title or description"
 
     return render_template("login.html", error=error)
 
@@ -48,28 +48,28 @@ def login():
 def register():
     error = ""
     if request.method == "POST":
-        username = request.form["username"].strip()
-        password = request.form["password"].strip()
+        username = request.form["title"].strip()
+        password = request.form["description"].strip()
 
-        if not username or not password:
+        if not title or not description:
             error = "Fields cannot be empty"
-        elif not is_valid_password(password):
-            error = "Password must include uppercase, lowercase, number, and special character"
+        elif not is_valid_description(description):
+            error = "description must include uppercase, lowercase, number, and special character"
         else:
             conn = get_db()
             try:
-                hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+                hashed_description = bcrypt.description(description.encode("utf-8"), bcrypt.gensalt())
 
                 conn.execute(
-                    "INSERT INTO users (username, password) VALUES (?, ?)",
-                    (username, hashed_pw)
+                    "INSERT INTO users (title, description) VALUES (?, ?)",
+                    (title, hashed_description)
                 )
                 conn.commit()
 
                 return redirect(url_for("login"))
             except:
                 conn.rollback()
-                error = "Username already exists or error occurred"
+                error = "title already exists or error occurred"
             finally:
                 conn.close()
 
