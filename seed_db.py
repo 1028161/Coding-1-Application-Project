@@ -20,10 +20,10 @@ def seed_database():
     conn = get_db()
     
     # Sample users with passwords
-   # sample_users = [
-       # ("alice", "Password123!"),
-       # ("bob", "SecurePass456@"),
-       # ("charlie", "MyPassword789#"),
+    sample_users = [
+        ("alice", "Password123!"),
+        ("bob", "SecurePass456@"),
+        ("charlie", "MyPassword789#"),
     ]
     
     twister_events = [
@@ -32,22 +32,21 @@ def seed_database():
         ("St-Louis-Tornado", "255 deaths"),
     ]
     
-   # try:
-       # for username, password in sample_users:
-           # hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-           # conn.execute(
-               # "INSERT INTO users (username, password) VALUES (?, ?)",
-               # (username, hashed_pw)
-           # )
-           # print(f"Created user: {username}")
+   try:
+       for username, password in sample_users:
+           hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+           conn.execute(
+               "INSERT INTO users (username, password) VALUES (?, ?)",
+               (username, hashed_pw)
+           )
+           print(f"Created user: {username}")
         
-        for events, event in twister_events:
-            hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+        for title, description in twisters:
             conn.execute(
-                "INSERT INTO users (username, password) VALUES (?, ?)",
-                (username, hashed_pw)
+                "INSERT INTO twisters (title, description) VALUES (?, ?)",
+                (title, description)
             )
-            print(f"Created user: {username}")
+            print(f"Created user: {title}")
         
         conn.commit()
         print("\nDatabase seeding complete!")
