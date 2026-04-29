@@ -33,13 +33,13 @@ def seed_database():
     ]
     
    try:
-       for username, password in sample_users:
-           hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+       for title, description in sample_users:
+           description = bcrypt.hashpw(description.encode("utf-8"), bcrypt.gensalt())
            conn.execute(
-               "INSERT INTO users (username, password) VALUES (?, ?)",
-               (username, hashed_pw)
+               "INSERT INTO users (title, description) VALUES (?, ?)",
+               (title, description)
            )
-           print(f"Created user: {username}")
+           print(f"Created user: {title}")
         
         for title, description in twisters:
             conn.execute(
