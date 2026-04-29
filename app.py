@@ -6,7 +6,8 @@ from flask import Flask, request, redirect, url_for, render_template, session
 from database import get_db, init_db
 import bcrypt
 import re
-
+#username = title
+#Password = description
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
