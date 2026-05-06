@@ -137,7 +137,7 @@ def create():
             conn.close()
         return render_template("register.html", error=error)
     return render_template("create.html")
-"""
+
 
 # ---------- UPDATE ----------
 # TODO: Create a route like /edit/<id>
