@@ -38,10 +38,10 @@ def login():
         conn.close()
 
         if user and bcrypt.checkpw(password.encode("utf-8"), user["password"]):
-            session["user"] = title
+            session["user"] = username
             return redirect(url_for("dashboard"))
         else:
-            error = "Incorrect title or description"
+            error = "Incorrect username or password"
 
     return render_template("login.html", error=error)
 
