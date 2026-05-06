@@ -119,16 +119,23 @@ def create():
 
     if request.method == "POST":
         # TODO: Get form data (title, content)
-
+        username = request.form["title"].strip()
+        password = request.form["description"].strip()
         # TODO: Connect to database
+        conn = get_db()
+        try:
+            conn.execute(
+                "INSERT INTO users (title, description) VALUES (?, ?)",
+                (title, description)
+            )
+            conn.commit()
 
-        # TODO: Insert into entries table
-        # IMPORTANT: include session["user"]
-
-        # TODO: Commit and close
-
-        return redirect(url_for("dashboard"))
-
+            return redirect(url_for("dashboard"))
+        except:
+            conn.rollback()
+        finally:
+            conn.close()
+        return render_template("register.html", error=error)
     return render_template("create.html")
 """
 
