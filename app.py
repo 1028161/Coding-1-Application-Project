@@ -153,12 +153,17 @@ def edit(id):
         return redirect(url_for("login"))
 
     # TODO: Connect to database
-
+    conn = get_db()
+    entry = conn.execute(
+        "SELECT * FROM entries WHERE id-?",
+        (id,)
+    ).fetchone()
     # TODO: Get entry WHERE id AND user
     # This prevents editing other users' data
 
-    # if not entry:
-    #     return "Not allowed"
+    if not entry:
+        conn.close()
+        return "Not allowed"
 
     if request.method == "POST":
         # TODO: Get updated form data
