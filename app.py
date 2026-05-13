@@ -135,7 +135,7 @@ def create():
             conn.rollback()
         finally:
             conn.close()
-        return render_template("register.html", error=error)
+        return render_template("register.html",)
     return render_template("create.html")
 
 
