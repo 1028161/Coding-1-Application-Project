@@ -7,7 +7,6 @@ def get_db():
 
 def init_db():
     conn = get_db()
-    # Add your new table between lines 15 & 16.
     conn.execute("""
         CREATE TABLE IF NOT EXISTS users (
             username TEXT PRIMARY KEY,
@@ -17,15 +16,18 @@ def init_db():
     conn.execute("""
         CREATE TABLE IF NOT EXISTS twisters (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user TEXT,
             title TEXT,
-            description TEXT
+            description TEXT,
+            date TEXT DEFAULT CURRENT_TIMESTAMP,
+            place TEXT
         )
     """)
-    # conn.execute("""
-    #     twister events (
-    #         title of twister,
-    #         deaths from twister
-    #     )
-    # """)
+    conn.execute("""
+        twister events (
+            title of twister,
+            deaths from twister
+        )
+    """)
     conn.commit()
-    conn.close() 
+    conn.close()
