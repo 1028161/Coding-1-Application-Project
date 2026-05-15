@@ -89,7 +89,7 @@ def dashboard():
     # TODO: Get all entries that belong to the logged-in user
     # Example:
     entries = conn.execute(
-        "SELECT * FROM entries WHERE user=?",
+        "SELECT * FROM twisters WHERE user=?",
     (session["user"],)
     ).fetchall()
 
@@ -118,15 +118,16 @@ def create():
         return redirect(url_for("login"))
 
     if request.method == "POST":
-        # TODO: Get form data (title, content)
+        user = session["user"]
         title = request.form["title"].strip()
         description = request.form["description"].strip()
-        # TODO: Connect to database
+        date = request.form["date"].strip()
+        place = request.form["place"].strip()
         conn = get_db()
         try:
             conn.execute(
-                "INSERT INTO twisters (title, description) VALUES (?, ?)",
-                (title, description)
+                "INSERT INTO twisters (user ,title, description, date, place) VALUES (?, ?, ?, ?, ?)",
+                (user, title, description, date, place)
             )
             conn.commit()
 
@@ -155,8 +156,8 @@ def edit(id):
     # TODO: Connect to database
     conn = get_db()
     entry = conn.execute(
-        "SELECT * FROM entries WHERE id-?",
-        (id,)
+        "SELECT * FROM twisters WHERE id=? AND user=?",
+        (id, session["user"])
     ).fetchone()
     # TODO: Get entry WHERE id AND user
     # This prevents editing other users' data
@@ -167,10 +168,12 @@ def edit(id):
 
     if request.method == "POST":
         title = request.form["title"].strip()
-        content = request.form["content"].strip()
+        description = request.form["description"].strip()
+        date = request.form["date"].strip()
+        place = request.form["place"].strip()
         # IMPORTANT: include id AND session["user"]
 
-        if not title or not content:
+        if not title or not description or not date or not place:
             error = "Fields can not be empty"
         else:
             try:
