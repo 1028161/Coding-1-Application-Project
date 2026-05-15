@@ -178,8 +178,8 @@ def edit(id):
         else:
             try:
                 conn.execute(
-                    "UPDATE entries SET title-?, content-? WHERE id-?",
-                    (title, content, id)
+                    "UPDATE twisters SET title=?, description=?, date=?, place=? WHERE id-? AND user=?",
+                    (title, description, date, place, id, session["user"])
                 )
                 conn.commit()
                 conn.close()
@@ -199,20 +199,35 @@ def edit(id):
 # - Delete an entry from the database
 # - Redirect back to dashboard
 
-"""
-@app.route("/delete/<int:id>")
+@app.route("/delete/<int:id>"),  methods=["GET", "POST"])
 def delete(id):
     if "user" not in session:
         return redirect(url_for("login"))
+    conn = get_db()
+    entry = conn.execute(
+        "SELECT * FROM twisters WHERE id=? AND user=?",
+        (id, session["user"])
+    ).fetchone()
+    
+    if not entry:
+        conn.close()
+        return "Entry not found or not authorized"
+    
+    if request.method == "POST":
+        try:
+            conn.execute(
+                "DELETE FROM twisters WHERE id=? AND user=?",
+                (id, session["user"])
+            )
+            conn.commit()
+        except:
+            conn.rollback()
+        finally:
+            conn.close()
 
-    # TODO: Connect to database
-
-    # TODO: Delete entry WHERE id AND user
-
-    # TODO: Commit and close
-
-    return redirect(url_for("dashboard"))
-"""
+        return redirect(url_for("dashboard"))
+    conn.close()
+    return render_template("delete.html", entry=entry)
 
 
 @app.route("/logout")
